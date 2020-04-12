@@ -1,0 +1,41 @@
+#Task 1
+# Create a directory tree
+.....
+mkdir -p A/{B/{D/{I/M/Z,J/L/Z},E/H/L/Z},C/{F/H/L/Z,G/K/L/Z}}
+.....
+
+
+#Task 2
+#Permission for date command
+
+....
+sudo su
+chmod -x usr/bin/date
+useradd -s usr/bin/date geet
+setfacl -m u:geet:rwx usr/bin/date
+exit
+date
+sudo su -geet
+....
+
+
+#Task 3
+#User data copy
+
+....
+adduser Abc
+ su - Abc
+ mkdir d1
+ adduser Def
+ su - Def
+ cp -r /home/Abc/d1 /home/Def
+....
+
+#Task 4
+#Run cal command for 10 seconds and store the output in a file
+watch -n10 cal > /root/Desktop/task4.txt
+
+
+
+
+

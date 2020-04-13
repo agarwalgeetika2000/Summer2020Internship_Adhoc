@@ -9,13 +9,17 @@ mkdir -p A/{B/{D/{I/M/Z,J/L/Z},E/H/L/Z},C/{F/H/L/Z,G/K/L/Z}}
 #Permission for date command
 
 ....
-sudo su
-chmod -x usr/bin/date
-useradd -s usr/bin/date geet
-setfacl -m u:geet:rwx usr/bin/date
-exit
 date
-sudo su -geet
+which date
+chmod a-x /usr/bin/date
+ls -l /usr/bin/date
+useradd -s /usr/bin/date geet
+setfacl -m u:geet:rwx /usr/bin/date
+su - geet
+setfacl -m u:root:--- /usr/bin/date
+chmod -x /usr/bin/date 
+date
+
 ....
 
 
@@ -23,17 +27,46 @@ sudo su -geet
 #User data copy
 
 ....
-adduser Abc
- su - Abc
- mkdir d1
- adduser Def
- su - Def
- cp -r /home/Abc/d1 /home/Def
+sudo apt install openssh-server -y
+sudo ufw allow ssh
+sudo useradd -m A
+sudo useradd -m B
+sudo passwd A
+sudo passwd B
+su - A
+mkdir folderA
+touch fileA
+exit
+su - B
+mkdir folderB
+touch fileB
+exit
+su - A
+scp fileA B@localhost:/home/B/
+scp -r folderA B@localhost:/home/B/
+exit
+ls /home/B/
 ....
 
 #Task 4
 #Run cal command for 10 seconds and store the output in a file
-watch -n10 cal > /root/Desktop/task4.txt
+
+.....
+
+count=0
+millis=$(date +%s)
+endtime=$((millis+10))
+while [ $millis -lt $endtime ]
+do
+	echo "Running"
+	count=$((count+1))
+	cal >> /tmp/a.txt
+	millis=$(date +%s)
+done
+echo "Count: $count" >> /tmp/a.txt
+cat /tmp/a.txt
+
+....
 
 
 

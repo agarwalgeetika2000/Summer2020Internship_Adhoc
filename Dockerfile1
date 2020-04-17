@@ -1,4 +1,0 @@
-from nginx
-maintainer geetikaagarwal2000@gmail.com
-copy abc.html /usr/share/nginx/html/index.html
-expose 80
